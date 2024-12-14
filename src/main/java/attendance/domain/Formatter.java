@@ -130,6 +130,25 @@ public class Formatter{
         }
         return "";
     }
+
+    public static String formattedResultAttendnace(List<AttendanceInfo> attendanceInfos, String nickname, LateManager lateManager) {
+        int attendance = 0;
+        int absense = 0;
+        int late = 0;
+        for(AttendanceInfo attendanceInfo : attendanceInfos){
+            if(attendanceInfo.isAttendant()){
+                attendance++;
+                continue;
+            }
+            if(attendanceInfo.isAbsense()){
+                absense++;
+                continue;
+            }
+            late++;
+        }
+        lateManager.update(attendance,absense,late,nickname);
+        return String.format(RESULT_ATTENDANCE,attendance,late,absense) + "\n\n" + getResultAttendantInfo(attendance,absense,late) + "\n";
+    }
 }
 
 //package org.praiseutil.domain;

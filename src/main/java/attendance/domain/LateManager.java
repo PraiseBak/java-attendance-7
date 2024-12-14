@@ -1,6 +1,5 @@
 package attendance.domain;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,5 +36,11 @@ public class LateManager {
             }
         }
         return objects;
+    }
+
+    public void update(int attendance, int absense, int late, String nickname) {
+        Late late1 = lateMap.get(nickname);
+        late1.update(absense,late);
+
     }
 }

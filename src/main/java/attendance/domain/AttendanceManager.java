@@ -62,7 +62,7 @@ public class AttendanceManager {
         }
     }
 
-    public String getAttendanceInfoByNickname(String nickname) {
+    public String getAttendanceInfoByNickname(String nickname, LateManager lateManager) {
         StringBuilder stringBuilder = new StringBuilder();
         List<LocalDate> reversedKeySet = attendanceMap.keySet().stream().toList().reversed();
         List<AttendanceInfo> attendanceInfos = new ArrayList<>();
@@ -73,7 +73,7 @@ public class AttendanceManager {
             attendanceInfos.add(attendanceInfo);
             stringBuilder.append(attendanceInfo.formattedInfo()).append("\n");
         }
-        stringBuilder.append(Formatter.formattedResultAttendnace(attendanceInfos));
+        stringBuilder.append(Formatter.formattedResultAttendnace(attendanceInfos,nickname,lateManager));
         return stringBuilder.toString();
     }
 

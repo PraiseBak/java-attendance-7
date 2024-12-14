@@ -58,6 +58,7 @@ public class AttendanceController {
     }
 
     public String getShowOutliner() {
+        attendanceService.updateLateInfo();
         return attendanceService.showOutliner();
     }
 }

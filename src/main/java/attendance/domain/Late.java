@@ -129,4 +129,9 @@ public class Late implements Comparable<Late> {
         return weight2 - weight;
     }
 
+    public void update(int absense, int late) {
+        this.countAbsense = absense-1;
+        this.countLate = late;
+        updateAbsense();
+    }
 }

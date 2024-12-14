@@ -69,7 +69,8 @@ public class AttendanceService {
 
     public String getAttendanceInfoByNickname(String nickname) {
         AttendanceManager attendanceManager = repository.getAttendanceManager();
-        return attendanceManager.getAttendanceInfoByNickname(nickname);
+        LateManager lateManager = repository.getLateManager();
+        return attendanceManager.getAttendanceInfoByNickname(nickname,lateManager);
     }
 
     public String modify(String nickname, String day, String modifyTime) {
@@ -88,7 +89,7 @@ public class AttendanceService {
         Collections.sort(lates);
         StringBuilder stringBuilder = new StringBuilder("제적 위험자 조회 결과\n");
         for(Late late : lates){
-            stringBuilder.append("- " + late.getCrewName() + ": " + " 결석 " + late.getCountAbsense() +"회" + "," + " " + "지각 " + late.getCountLate() + "회" + " " + Formatter.getLisk(late.getCountAbsense()));
+            stringBuilder.append("- " + late.getCrewName() + ": " + "결석 " + late.getCountAbsense() +"회" + "," + " " + "지각 " + late.getCountLate() + "회" + " " + Formatter.getLisk(late.getCountAbsense()));
             stringBuilder.append("\n");
         }
         return stringBuilder.toString();
