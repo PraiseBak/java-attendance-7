@@ -78,7 +78,6 @@ public class AttendanceManager {
     }
 
 
-
     private Attendance getAttendanceByNickname(List<Attendance> attendances, String nickname) {
         for(Attendance attendance : attendances){
             if(attendance.isSameNickname(nickname)){
