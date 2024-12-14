@@ -19,4 +19,8 @@ public class AttendanceController {
     public String getDate() {
         return attendanceService.getDate();
     }
+
+    public void validateAttendance() {
+        attendanceService.validateWorkday();
+    }
 }

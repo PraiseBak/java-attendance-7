@@ -2,10 +2,8 @@ package attendance.repostiroy;
 
 import attendance.domain.Formatter;
 import camp.nextstep.edu.missionutils.DateTimes;
-import java.text.Format;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
+import net.bytebuddy.asm.MemberSubstitution.WithoutSpecification.ForMatchedField;
 
 public class Repository {
 
@@ -15,7 +13,12 @@ public class Repository {
         now = DateTimes.now().toLocalDate();
     }
 
-    public String getNow(){
-        return Formatter.formattedNow(now);
+    public LocalDate getNow(){
+        return now;
     }
+
+    public String getNowStr(){
+        return Formatter.formattedCurNow(now);
+    }
+
 }

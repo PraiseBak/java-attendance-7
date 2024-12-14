@@ -45,6 +45,17 @@ public class Application {
     }
 
     private static void doCheckAttendance() {
+        while (true){
+            try{
+                attendnaceController.validateAttendance();
+            }catch (IllegalArgumentException e){
+                OutputView.printError(e.getMessage());
+            }
+
+        }
+
+
+
     }
 
     private static String selectMethod() {

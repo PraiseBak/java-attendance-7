@@ -4,14 +4,35 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 public class Formatter{
+    private final static String DAY_WEEK_FORMAT = "%d월 %d일 %s";
 
-    private final static String FORMATTED_NOW = "오늘은 %d월 %d일 토요일입니다. 기능을 선택해 주세요.\n";
-    public static String formattedNow(LocalDate now) {
+    private final static String NOW_FORMAT = "오늘은 %d월 %d일 %s입니다. 기능을 선택해 주세요.\n";
+    private static final String DAY_OFF_ERROR_FORMAT = "%s은 등교일이 아닙니다.\n";
+
+    public static String formattedCurNow(LocalDate now) {
         int dayOfMonth = now.getDayOfMonth();
         int monthValue = now.getMonthValue();
+        String day = getFormattedDayOfWeek(now);
+        return String.format(NOW_FORMAT,monthValue,dayOfMonth,day);
+    }
+
+
+
+    private static String getFormattedDayOfWeek(LocalDate now) {
         DayOfWeek dayOfWeek = now.getDayOfWeek();
         String day = Day.getKrDayByDayOfWeek(dayOfWeek.toString());
-        return String.format(FORMATTED_NOW,monthValue,dayOfMonth,day);
+        return day;
+    }
+
+    public static String getFormattedDayWeekFormat(LocalDate now){
+        int dayOfMonth = now.getDayOfMonth();
+        int monthValue = now.getMonthValue();
+        String day = getFormattedDayOfWeek(now);
+        return String.format(DAY_WEEK_FORMAT,dayOfMonth,monthValue,day);
+    }
+
+    public static String getFormattedDayOffError(String errorMessage) {
+        return String.format(DAY_OFF_ERROR_FORMAT,errorMessage); 
     }
 }
 

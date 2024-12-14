@@ -20,11 +20,27 @@ public enum Day {
     }
 
     public static String getKrDayByDayOfWeek(String string) {
-        for(Day day : Day.values()){
-            if(day.dayOfWeek.equals(string)){
-                return day.krDayOfWeek;
-            }
+        Day day = getDayByDayOfWeek(string);
+        if (day != null) {
+            return day.krDayOfWeek;
         }
         return "";
+    }
+
+    private static Day getDayByDayOfWeek(String string) {
+        for(Day day : Day.values()){
+            if(day.dayOfWeek.equals(string)){
+                return day;
+            }
+        }
+        return null;
+    }
+
+    public static boolean isDayOff(String string) {
+        Day dayByDayOfWeek = getDayByDayOfWeek(string);
+        if(dayByDayOfWeek == SAT || dayByDayOfWeek == SUN){
+            return true;
+        }
+        return false;
     }
 }
