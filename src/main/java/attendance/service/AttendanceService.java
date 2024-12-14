@@ -3,13 +3,17 @@ package attendance.service;
 import attendance.domain.AttendanceManager;
 import attendance.domain.Day;
 import attendance.domain.Formatter;
+import attendance.domain.Late;
 import attendance.domain.LateCalculator;
+import attendance.domain.LateManager;
 import attendance.exception.AttendanceException;
 import attendance.exception.ExceptionHelper;
 import attendance.repostiroy.Repository;
 import attendance.utility.DateUtility;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Collections;
+import java.util.List;
 
 public class AttendanceService {
 
@@ -76,5 +80,17 @@ public class AttendanceService {
     public void validateDay(String day) {
         AttendanceManager attendanceManager = repository.getAttendanceManager();
         attendanceManager.validateDay(day);
+    }
+
+    public String showOutliner() {
+        LateManager lateManager = repository.getLateManager();
+        List<Late> lates = lateManager.getLates();
+        Collections.sort(lates);
+        StringBuilder stringBuilder = new StringBuilder("제적 위험자 조회 결과\n");
+        for(Late late : lates){
+            stringBuilder.append("- " + late.getCrewName() + ": " + " 결석 " + late.getCountAbsense() +"회" + "," + " " + "지각 " + late.getCountLate() + "회" + " " + Formatter.getLisk(late.getCountAbsense()));
+            stringBuilder.append("\n");
+        }
+        return stringBuilder.toString();
     }
 }

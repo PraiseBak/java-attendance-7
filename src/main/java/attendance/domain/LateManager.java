@@ -1,6 +1,7 @@
 package attendance.domain;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,5 +25,17 @@ public class LateManager {
 
     public void updateLateByName(String name) {
         lateMap.get(name).updateLate();
+    }
+
+    public List<Late> getLates(){
+        ArrayList<Late> objects = new ArrayList<>();
+
+        for(String s : lateMap.keySet()){
+            Late late = lateMap.get(s);
+            if(late.isMeetNeed() || late.isWarning() || late.isWeeding()){
+                objects.add(late);
+            }
+        }
+        return objects;
     }
 }

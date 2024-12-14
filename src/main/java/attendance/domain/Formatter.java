@@ -117,6 +117,19 @@ public class Formatter{
         }
         return "";
     }
+
+    public static String getLisk(int absense) {
+        if(absense > 5){
+            return "(제적)";
+        }
+        if(absense >= 3){
+            return "(면담)";
+        }
+        if(absense >= 2){
+            return "경고";
+        }
+        return "";
+    }
 }
 
 //package org.praiseutil.domain;

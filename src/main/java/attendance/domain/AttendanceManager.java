@@ -137,4 +137,5 @@ public class AttendanceManager {
         }
         throw new AttendanceException("해당 날짜로 수정할 출석이 없습니다.");
     }
+
 }

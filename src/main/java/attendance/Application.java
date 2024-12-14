@@ -51,6 +51,7 @@ public class Application {
     }
 
     private static void doShowOutliner() {
+        OutputView.println(attendnaceController.getShowOutliner());
     }
 
     private static void doShowAttendanceByCrewname() {

@@ -56,4 +56,8 @@ public class AttendanceController {
     private void validateModifyTime(String modifyTime) {
         UserInputValidator.validateHourAndMin(modifyTime.split(":"));
     }
+
+    public String getShowOutliner() {
+        return attendanceService.showOutliner();
+    }
 }

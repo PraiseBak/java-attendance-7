@@ -37,10 +37,15 @@ public class Repository {
         attendanceManager = new AttendanceManager(attendances);
         Map<String, Late> lateMap = FileRepository.getLateMap();
         lateManager = new LateManager(lateMap);
+        updateLate();
     }
 
     public void updateLate(){
         attendanceManager.updateLateInfo(lateManager);
 
+    }
+
+    public LateManager getLateManager() {
+        return lateManager;
     }
 }
