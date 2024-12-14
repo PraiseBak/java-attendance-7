@@ -3,7 +3,6 @@ package attendance.view;
 
 import attendance.validator.UserInputValidator;
 import camp.nextstep.edu.missionutils.Console;
-import javax.swing.InputVerifier;
 
 public class InputView {
     private static String input() {
@@ -20,6 +19,16 @@ public class InputView {
 
     public static String selectMethod() {
         OutputView.selectMethod();
+        return input();
+    }
+
+    public static String getNickname() {
+        OutputView.printGetNickname();
+        return input();
+    }
+
+    public static String getAttendance() {
+        OutputView.printGetAttendance();
         return input();
     }
 }

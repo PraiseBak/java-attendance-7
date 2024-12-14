@@ -1,5 +1,9 @@
 package attendance.controller;
 
+import attendance.domain.Formatter;
+import attendance.domain.LateCalculator;
+import attendance.exception.AttendanceException;
+import attendance.exception.ExceptionHelper;
 import attendance.service.AttendanceService;
 
 public class AttendanceController {
@@ -12,8 +16,6 @@ public class AttendanceController {
 
     public void initDate() {
         attendanceService.initDate();
-
-
     }
 
     public String getDate() {
@@ -22,5 +24,22 @@ public class AttendanceController {
 
     public void validateAttendance() {
         attendanceService.validateWorkday();
+    }
+
+    public void checkAttendance(String attendance, String nickname) {
+        attendanceService.checkAttendance(attendance,nickname);
+    }
+
+    public void validateNickname(String nickname) {
+        attendanceService.validateNickname(nickname);
+    }
+
+    public void initAttendance() {
+        attendanceService.initAttendance();
+        attendanceService.updateLateInfo();
+    }
+
+    public String getAttendanceInfoByNickname(String nickname) {
+        return attendanceService.getAttendanceInfoByNickname(nickname);
     }
 }

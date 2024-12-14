@@ -10,6 +10,7 @@ public class Application {
     private final static AttendanceController attendnaceController = AppConfig.getController();
     public static void main(String[] args) {
         initDate();
+        initAttendance();
         while (true){
             getServerDate();
             String method = selectMethod();
@@ -20,10 +21,12 @@ public class Application {
         }
     }
 
+    private static void initAttendance() {
+        attendnaceController.initAttendance();
+    }
+
     private static void doMethod(String method) {
-        if(method.equals("1")){
-            doCheckAttendance();
-        }
+        checkAttendance(method);
         if(method.equals("2")){
             doAttendanceModify();
         }
@@ -35,27 +38,50 @@ public class Application {
         }
     }
 
+    private static void checkAttendance(String method) {
+        if(method.equals("1")){
+            try{
+                attendnaceController.validateAttendance();
+            }catch (IllegalArgumentException e){
+                OutputView.printError(e.getMessage());
+                return;
+            }
+            doCheckAttendance();
+        }
+    }
+
     private static void doShowOutliner() {
     }
 
     private static void doShowAttendanceByCrewname() {
+        while (true){
+            try{
+                String nickname = InputView.getNickname();
+                attendnaceController.validateNickname(nickname);
+                OutputView.println(attendnaceController.getAttendanceInfoByNickname(nickname));
+                return;
+            }catch (IllegalArgumentException e){
+                OutputView.printError(e.getMessage());
+            }
+        }
+
     }
 
     private static void doAttendanceModify() {
+
     }
 
     private static void doCheckAttendance() {
         while (true){
             try{
-                attendnaceController.validateAttendance();
+                String nickname = InputView.getNickname();
+                attendnaceController.validateNickname(nickname);
+                String attendance = InputView.getAttendance();
+                attendnaceController.checkAttendance(nickname,attendance);
             }catch (IllegalArgumentException e){
                 OutputView.printError(e.getMessage());
             }
-
         }
-
-
-
     }
 
     private static String selectMethod() {
