@@ -6,12 +6,14 @@ import attendance.exception.AttendanceException;
 import attendance.exception.ExceptionHelper;
 import attendance.utility.DateUtility;
 import attendance.validator.UserInputValidator;
+import camp.nextstep.edu.missionutils.DateTimes;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.chrono.ChronoLocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -77,6 +79,9 @@ public class FileRepository {
         LocalDate localDateFromString = DateUtility.getLocalDateFromString(sArr[1].split(" ")[0]);
         LocalTime localTime = DateUtility.getLocalTimeFromString(sArr[1].split(" ")[1]);
         List<Attendance> list = map.getOrDefault(localDateFromString, new ArrayList<>());
+        if(localDateFromString.isEqual(ChronoLocalDate.from(DateTimes.now())) || localDateFromString.isAfter(ChronoLocalDate.from(DateTimes.now()))){
+            return;
+        }
         list.add(new Attendance(sArr[0],localTime));
         map.put(localDateFromString,list);
     }
