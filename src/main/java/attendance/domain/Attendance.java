@@ -1,5 +1,6 @@
 package attendance.domain;
 
+import attendance.dto.AttendanceInfo;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -31,5 +32,18 @@ public class Attendance {
 
     public String getAttendantFormat() {
         return Formatter.getAttendantFormat(attendanceTime);
+    }
+
+    public String updateAttendance(String modifyTime, LocalDate localDate) {
+        String[] split = modifyTime.split(":");
+        AttendanceInfo attendanceInfo = Formatter.getAttendanceInfo(this,localDate);
+        this.attendanceTime = LocalTime.of(Integer.parseInt(split[0]),Integer.parseInt(split[1]));
+        AttendanceInfo after = Formatter.getAttendanceInfo(this,localDate);
+        return attendanceInfo.formattedInfo() + " -> " + onlyDateTime(after) + " 수정 완료!\n";
+    }
+
+    private static String onlyDateTime(AttendanceInfo after) {
+        String[] split = after.formattedInfo().split(" ");
+        return split[3] + " " + split[4];
     }
 }

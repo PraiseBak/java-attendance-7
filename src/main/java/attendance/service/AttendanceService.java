@@ -29,7 +29,6 @@ public class AttendanceService {
 
     public void validateWorkday() {
         LocalDate now = repository.getNow();
-        String string = Formatter.getFormattedDayInfoFormat(now);
         boolean dayOff = Day.isDayOff(now.getDayOfWeek().toString());
         if(dayOff || DateUtility.isSpecialWeek(now)){
             String errorMessage = Formatter.getFormattedDayInfoFormat(now);
@@ -52,8 +51,11 @@ public class AttendanceService {
         repository.updateLate();
     }
 
-    public void checkAttendance(String attendance, String nickname) {
+    public String checkAttendance(String attendance, String nickname) {
         validateNotOpenSchool(DateUtility.getLocalTimeFromString(attendance));
+        AttendanceManager attendanceManager = repository.getAttendanceManager();
+        return attendanceManager.addAttendance(attendance,nickname);
+
     }
     private void validateNotOpenSchool(LocalTime now) {
         if(LateCalculator.isNotOpenSchool(now)) {
@@ -64,5 +66,15 @@ public class AttendanceService {
     public String getAttendanceInfoByNickname(String nickname) {
         AttendanceManager attendanceManager = repository.getAttendanceManager();
         return attendanceManager.getAttendanceInfoByNickname(nickname);
+    }
+
+    public String modify(String nickname, String day, String modifyTime) {
+        AttendanceManager attendanceManager = repository.getAttendanceManager();
+        return attendanceManager.modify(nickname,day,modifyTime);
+    }
+
+    public void validateDay(String day) {
+        AttendanceManager attendanceManager = repository.getAttendanceManager();
+        attendanceManager.validateDay(day);
     }
 }

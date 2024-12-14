@@ -11,7 +11,7 @@ public class Formatter{
 
     private final static String NOW_FORMAT = "오늘은 %d월 %d일 %s입니다. 기능을 선택해 주세요.\n";
     private static final String DAY_OFF_ERROR_FORMAT = "%s은 등교일이 아닙니다.\n";
-    private static final String ATTENDANCE_INFO_FORMAT = "%s %s (%s)\n";
+    private static final String ATTENDANCE_INFO_FORMAT = "%s %s (%s)";
     private static final String ABSENSE_FORMAT = "--:--";
     private static final String RESULT_ATTENDANCE = "\n출석: %d회\n"
             + "지각: %d회\n"

@@ -65,7 +65,7 @@ public class UserInputValidator {
 
     }
 
-    private static void validateLocalDateTime(String s) {
+    public static void validateLocalDateTime(String s) {
         String[] sArr = s.split(" ");
         String localDate = sArr[0];
         String localTime = sArr[1];
@@ -73,12 +73,27 @@ public class UserInputValidator {
         validateLocalTime(localTime.split(":"));
     }
 
-    private static void validateLocalTime(String[] localTime) {
+    public static void validateLocalTime(String[] localTime) {
         if(localTime.length != 2){
             throw new AttendanceException(ExceptionHelper.FAIL_FILE_LOAD);
         }
         for(String s : localTime){
             validateNumber(s);
+        }
+        validateHourAndMin(localTime);
+    }
+
+    public static void validateHourAndMin(String[] localTime) {
+        if(localTime.length != 2){
+            throw new AttendanceException("잘못된 형식을 입력하였습니다.");
+        }
+        int hour = Integer.parseInt(localTime[0]);
+        int min  = Integer.parseInt(localTime[1]);
+        if(hour >= 24){
+            throw new AttendanceException("잘못된 형식을 입력하였습니다.");
+        }
+        if(min >= 60){
+            throw new AttendanceException("잘못된 형식을 입력하였습니다.");
         }
     }
 

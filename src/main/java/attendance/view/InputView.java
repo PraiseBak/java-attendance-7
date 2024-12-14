@@ -31,4 +31,19 @@ public class InputView {
         OutputView.printGetAttendance();
         return input();
     }
+
+    public static String getModifyNickname() {
+        OutputView.printModifyNickname();
+        return input();
+    }
+
+    public static String getDay() {
+        OutputView.printGetDay();
+        return input();
+    }
+
+    public static String moddifyTime() {
+        OutputView.printModifyTime();
+        return input();
+    }
 }

@@ -6,5 +6,5 @@ public class ExceptionHelper {
     public static final String INVALID_NICKNAME = "등록되지 않은 닉네임입니다.";
 
     public static final String FAIL_FILE_LOAD = "유효하지 않은 파일입니다.";
-    public static final String NOT_OPEN_SCHOOL = "캠퍼스 운영 시간은 매일 08:00~23:00입니다.";
+    public static final String NOT_OPEN_SCHOOL = "캠퍼스 운영 시간에만 출석이 가능합니다.";
 }

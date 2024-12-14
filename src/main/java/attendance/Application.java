@@ -12,12 +12,17 @@ public class Application {
         initDate();
         initAttendance();
         while (true){
-            getServerDate();
-            String method = selectMethod();
-            if(method.equals("Q")){
-                return;
+            try{
+                getServerDate();
+                String method = selectMethod();
+                if(method.equals("Q")){
+                    return;
+                }
+                doMethod(method);
+            }catch (IllegalArgumentException e){
+                OutputView.printError(e.getMessage());
+                throw new IllegalArgumentException("[ERROR] " + e.getMessage());
             }
-            doMethod(method);
         }
     }
 
@@ -40,12 +45,7 @@ public class Application {
 
     private static void checkAttendance(String method) {
         if(method.equals("1")){
-            try{
-                attendnaceController.validateAttendance();
-            }catch (IllegalArgumentException e){
-                OutputView.printError(e.getMessage());
-                return;
-            }
+            attendnaceController.validateAttendance();
             doCheckAttendance();
         }
     }
@@ -54,47 +54,32 @@ public class Application {
     }
 
     private static void doShowAttendanceByCrewname() {
-        while (true){
-            try{
-                String nickname = InputView.getNickname();
-                attendnaceController.validateNickname(nickname);
-                OutputView.println(attendnaceController.getAttendanceInfoByNickname(nickname));
-                return;
-            }catch (IllegalArgumentException e){
-                OutputView.printError(e.getMessage());
-            }
-        }
-
+        String nickname = InputView.getNickname();
+        attendnaceController.validateNickname(nickname);
+        OutputView.println(attendnaceController.getAttendanceInfoByNickname(nickname));
     }
 
     private static void doAttendanceModify() {
-
+        String nickname = InputView.getModifyNickname();
+        attendnaceController.validateNickname(nickname);
+        String day = InputView.getDay();
+        attendnaceController.validateDay(day);
+        String modifyTime = InputView.moddifyTime();
+        OutputView.println(attendnaceController.modify(nickname,day,modifyTime));
     }
 
     private static void doCheckAttendance() {
-        while (true){
-            try{
-                String nickname = InputView.getNickname();
-                attendnaceController.validateNickname(nickname);
-                String attendance = InputView.getAttendance();
-                attendnaceController.checkAttendance(nickname,attendance);
-            }catch (IllegalArgumentException e){
-                OutputView.printError(e.getMessage());
-            }
-        }
+        String nickname = InputView.getNickname();
+        attendnaceController.validateNickname(nickname);
+        String attendance = InputView.getAttendance();
+        UserInputValidator.validateHourAndMin(attendance.split(":"));
+        OutputView.println(attendnaceController.checkAttendance(attendance,nickname));
     }
 
     private static String selectMethod() {
-        while (true){
-            try {
-                String method = InputView.selectMethod();
-                UserInputValidator.validateMethod(method);
-                return method;
-            }catch (IllegalArgumentException e){
-                OutputView.printError(e.getMessage());
-            }
-        }
-
+        String method = InputView.selectMethod();
+        UserInputValidator.validateMethod(method);
+        return method;
     }
 
     private static void getServerDate() {

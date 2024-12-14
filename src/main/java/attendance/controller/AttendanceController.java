@@ -1,10 +1,7 @@
 package attendance.controller;
 
-import attendance.domain.Formatter;
-import attendance.domain.LateCalculator;
-import attendance.exception.AttendanceException;
-import attendance.exception.ExceptionHelper;
 import attendance.service.AttendanceService;
+import attendance.validator.UserInputValidator;
 
 public class AttendanceController {
 
@@ -26,8 +23,10 @@ public class AttendanceController {
         attendanceService.validateWorkday();
     }
 
-    public void checkAttendance(String attendance, String nickname) {
-        attendanceService.checkAttendance(attendance,nickname);
+    public String checkAttendance(String attendance, String nickname) {
+        String s = attendanceService.checkAttendance(attendance, nickname);
+        attendanceService.updateLateInfo();
+        return s;
     }
 
     public void validateNickname(String nickname) {
@@ -41,5 +40,20 @@ public class AttendanceController {
 
     public String getAttendanceInfoByNickname(String nickname) {
         return attendanceService.getAttendanceInfoByNickname(nickname);
+    }
+
+    public void validateDay(String day) {
+        attendanceService.validateDay(day);
+    }
+
+    public String modify(String nickname, String day, String modifyTime) {
+        validateModifyTime(modifyTime);
+        String modify = attendanceService.modify(nickname, day, modifyTime);
+        attendanceService.updateLateInfo();
+        return modify;
+    }
+
+    private void validateModifyTime(String modifyTime) {
+        UserInputValidator.validateHourAndMin(modifyTime.split(":"));
     }
 }
